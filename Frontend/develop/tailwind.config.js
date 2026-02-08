@@ -1,0 +1,12 @@
+/** @type {import('tailwindcss').Config} */
+// Force rebuild
+export default {
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+}
