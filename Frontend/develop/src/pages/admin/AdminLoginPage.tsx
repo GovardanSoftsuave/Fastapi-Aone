@@ -1,10 +1,10 @@
 import { useEffect, useCallback, useState, type SubmitEvent } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-import { login, clearError } from "../../store/auth"
+import { adminLogin, clearError } from "../../store/auth"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 
-const LoginPage = () => {
+const AdminLoginPage = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -15,7 +15,9 @@ const LoginPage = () => {
 
     // Redirect when authenticated
     useEffect(() => {
-        if (token) navigate("/")
+        if (token) {
+             navigate("/") 
+        }
         return () => {
             dispatch(clearError())
         }
@@ -26,10 +28,10 @@ const LoginPage = () => {
             e.preventDefault()
 
             dispatch(clearError())
-            await dispatch(login({ email, password })).unwrap()
-            navigate("/")
+            // @ts-ignore
+            await dispatch(adminLogin({ email, password })).unwrap()
         },
-        [dispatch, email, password, navigate]
+        [dispatch, email, password]
     )
 
 
@@ -39,9 +41,9 @@ const LoginPage = () => {
                 onSubmit={handleSubmit}
                 className="w-full max-w-md rounded-2xl border bg-white px-8 py-10 shadow-sm text-center"
             >
-                <h1 className="text-3xl font-semibold text-gray-900">Login</h1>
+                <h1 className="text-3xl font-semibold text-gray-900">Admin Login</h1>
                 <p className="mt-2 text-sm text-gray-500">
-                    Please sign in to continue
+                    Restricted access. Please sign in.
                 </p>
 
                 {error && (
@@ -75,16 +77,9 @@ const LoginPage = () => {
                 >
                     {loading ? "Signing in…" : "Login"}
                 </button>
-
-                <p className="mt-4 text-sm text-gray-600">
-                    Don’t have an account?
-                    <Link to="/signup" className="ml-1 text-indigo-600 hover:underline">
-                        Sign up
-                    </Link>
-                </p>
             </form>
         </div>
     )
 }
 
-export default LoginPage
+export default AdminLoginPage

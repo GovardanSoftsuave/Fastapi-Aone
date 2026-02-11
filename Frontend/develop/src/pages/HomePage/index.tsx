@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../store/hooks"
-import { logout } from "../../store/authSlice"
+import { logout } from "../../store/auth"
 import { LogOut, LayoutDashboard, Users, DollarSign, Activity, TrendingUp } from "lucide-react"
 
 const HomePage = () => {
@@ -8,7 +8,7 @@ const HomePage = () => {
     // Based on authSlice, it has 'user' which is null initially or populated.
     // The 'login' thunk returns { access_token: string }, but doesn't seem to set 'user' details immediately unless encoded in token or fetched separately.
     // For now, I'll allow a fallback for user name.
-
+    const user = localStorage.getItem("username")
     const handleLogout = () => {
         dispatch(logout())
     }
@@ -24,7 +24,7 @@ const HomePage = () => {
                             <span className="ml-2 text-xl font-bold text-gray-900">DevDashboard</span>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <div className="text-sm text-gray-500">Welcome, User</div>
+                            <div className="text-sm text-gray-500">Welcome, {user ? user : "User"}</div>
                             <button
                                 onClick={handleLogout}
                                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"

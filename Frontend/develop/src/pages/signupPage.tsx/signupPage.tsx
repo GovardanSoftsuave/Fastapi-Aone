@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, type SubmitEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-import { signup, clearError } from "../../store/authSlice"
+import { signup, clearError } from "../../store/auth"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 
 type SignupForm = {
@@ -37,8 +37,8 @@ const SignupPage = () => {
         []
     )
 
-    const handleSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>(
-        async (e) => {
+    const handleSubmit = useCallback(
+        async (e: SubmitEvent<HTMLFormElement>) => {
             e.preventDefault()
             dispatch(clearError())
 

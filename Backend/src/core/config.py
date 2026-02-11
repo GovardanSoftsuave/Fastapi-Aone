@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: str
     
     # Redis Configuration
-    REDIS_URL: str
+    REDIS_URL: str = "redis://localhost:6379/0"
 
     # Encryption Configuration
     ENCRYPTION_KEY: str

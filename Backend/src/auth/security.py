@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from jose import jwt
 from core.config import settings
 
@@ -13,14 +14,13 @@ def decode_token(token: str) -> str:
     user_id = payload.get("sub")
     if not user_id:
         raise Exception("Invalid token payload")
-
     return user_id
 
 
 def encode_token(user_id: str) -> str:
     payload = {
         "sub": str(user_id),
-        "exp": settings.JWT_EXPIRATION_TIME
+        "exp": datetime.utcnow() + timedelta(minutes=settings.JWT_EXPIRATION_TIME)
     }
 
     token = jwt.encode(
